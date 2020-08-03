@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+
+    <button id="btn">Загрузить данные</button>
+
+    <script>
+        let btn = document.querySelector("#btn");
+        let container = document.querySelector("#container");
+
+        btn.addEventListener("click", () => {
+
+            let xhr = new XMLHttpRequest();
+
+            //get
+            // xhr.open("GET", "/get-ajax?name=mike&age=30");
+            // xhr.send();
+
+            //post
+            let body = 'name=' + encodeURIComponent('mike') +
+                '&surname=' + encodeURIComponent('alexeev');
+            xhr.open("POST", '/get-ajax');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(body);
+
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    container.innerHTML += xhr.response;
+                } else {
+                    container.innerHTML += `Данные отсутсвуют, ${xhr.response}`;
+                }
+            };
+        });
+    </script>
+</body>
+</html>
